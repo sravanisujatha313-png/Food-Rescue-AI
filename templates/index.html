@@ -1,0 +1,26 @@
+{% extends "base.html" %}{% block title %}FoodRescue AI | Home{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-copy">
+    <div class="eyebrow">TECHNOLOGY WITH A SOCIAL PURPOSE</div>
+    <h1>Good food should<br><em>feed people,</em> not bins.</h1>
+    <p>An AI-assisted platform connecting surplus food donors with verified NGOs and food recovery volunteers.</p>
+    <div class="actions"><a class="btn" href="{{ url_for('register') }}">Join the food rescue network</a><a class="btn secondary" href="{{ url_for('about') }}">How it works</a></div>
+  </div>
+  <div class="hero-art"><div class="plate">🥗</div><div class="float f1">🍲 Food donation</div><div class="float f2">🤝 Community support</div><div class="float f3">🌱 Less waste</div></div>
+</section>
+<section class="stats">
+  <div class="stat"><strong>{{ stats.donations }}</strong><span>Donations listed</span></div>
+  <div class="stat"><strong>{{ stats.available }}</strong><span>Available now</span></div>
+  <div class="stat"><strong>{{ stats.meals }}</strong><span>Servings in accepted/delivered donations</span></div>
+</section>
+<section class="section">
+  <div class="section-head"><div><div class="eyebrow">THE FOOD RESCUE JOURNEY</div><h2>From surplus to support.</h2></div></div>
+  <div class="steps">
+    <div class="step"><b>01</b><h3>Donors list food</h3><p>Restaurants, hotels and event organizers share safe surplus food details.</p></div>
+    <div class="step"><b>02</b><h3>Smart matching</h3><p>The platform prioritizes nearby organizations and urgent collection deadlines.</p></div>
+    <div class="step"><b>03</b><h3>Food is collected</h3><p>NGOs and volunteers coordinate pickup and confirm delivery.</p></div>
+  </div>
+</section>
+<div class="notice"><strong>Food safety comes first.</strong> This prototype supports coordination only. Donors and authorized food recovery partners must verify handling, storage, transport and safe consumption under applicable FSSAI requirements.</div>
+{% endblock %}

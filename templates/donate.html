@@ -1,0 +1,13 @@
+{% extends "base.html" %}{% block title %}Donate Food{% endblock %}{% block content %}
+<div class="form-wrap wide"><div class="eyebrow">SHARE SURPLUS FOOD</div><h1>Post a food donation</h1><p class="muted">Enter accurate details so an organization can assess and collect the food safely.</p>
+<form method="post" class="form grid-form">
+<label>Food name<input name="food_name" required placeholder="e.g. Vegetable rice"></label>
+<label>Food category<select name="category"><option>Cooked meal</option><option>Packaged food</option><option>Fresh produce</option><option>Bakery</option><option>Other</option></select></label>
+<label>Quantity (kg)<input type="number" name="quantity_kg" min="0.1" step="0.1" required></label>
+<label>Estimated servings<input type="number" name="servings" min="1" required></label>
+<label>City<input name="city" value="{{ user.city }}" required></label>
+<label>Prepared / packed at<input type="datetime-local" name="prepared_at" required></label>
+<label>Safe collection deadline<input type="datetime-local" name="safe_until" required></label>
+<label class="span-two">Storage and handling notes<textarea name="notes" rows="3" placeholder="How was it stored? Any allergen information?"></textarea></label>
+<div class="span-two notice"><b>Important:</b> Only list food that is safe and legally eligible for donation. The donor remains responsible for accurate preparation, storage and handling information. Do not use this app to decide food safety.</div>
+<button class="btn span-two">Publish donation</button></form></div>{% endblock %}

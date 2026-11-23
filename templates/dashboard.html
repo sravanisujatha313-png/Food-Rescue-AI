@@ -1,0 +1,14 @@
+{% extends "base.html" %}{% block title %}Dashboard{% endblock %}{% block content %}
+<div class="page-head"><div><div class="eyebrow">{{ user.role|upper }} WORKSPACE</div><h1>Hello, {{ user.name }} 👋</h1><p class="muted">Your food recovery activity at a glance.</p></div>
+{% if user.role == 'donor' %}<a class="btn" href="{{ url_for('donate') }}">+ Add food donation</a>{% else %}<a class="btn" href="{{ url_for('matching') }}">Find available food</a>{% endif %}</div>
+<div class="stats dashboard-stats"><div class="stat"><strong>{{ totals.all }}</strong><span>Total food listings</span></div><div class="stat"><strong>{{ totals.available }}</strong><span>Available listings</span></div><div class="stat"><strong>{{ totals.delivered_meals }}</strong><span>Servings delivered</span></div></div>
+<div class="section-head"><h2>{% if user.role == 'donor' %}Your donations{% elif user.role == 'ngo' %}Available and assigned donations{% else %}Food collection opportunities{% endif %}</h2></div>
+{% if rows %}
+<div class="table-wrap"><table><thead><tr><th>Food</th><th>Quantity</th><th>City</th><th>Collect by</th><th>Status</th><th>Action</th></tr></thead><tbody>
+{% for d in rows %}<tr><td><b>{{ d.food_name }}</b><small>{{ d.category }}</small></td><td>{{ d.quantity_kg }} kg<br><small>{{ d.servings }} servings</small></td><td>{{ d.city }}</td><td>{{ d.safe_until|replace('T',' ') }}</td><td><span class="status {{ d.status|lower }}">{{ d.status }}</span></td><td>
+{% if user.role in ['ngo','volunteer'] and d.status == 'Available' %}<form method="post" action="{{ url_for('claim', donation_id=d.id) }}"><button class="small-btn">Accept</button></form>
+{% elif user.role == 'ngo' and d.status == 'Accepted' and d.ngo_id == user.id %}<form method="post" action="{{ url_for('delivered', donation_id=d.id) }}"><button class="small-btn">Mark delivered</button></form>
+{% elif user.role == 'donor' and d.ngo_name %}<small>Accepted by {{ d.ngo_name }}</small>{% else %}<small>—</small>{% endif %}
+</td></tr>{% endfor %}</tbody></table></div>
+{% else %}<div class="empty"><div>🥣</div><h3>No donations yet</h3><p>When food is listed or matched, it will appear here.</p>{% if user.role=='donor' %}<a class="btn" href="{{ url_for('donate') }}">Add first donation</a>{% else %}<a class="btn" href="{{ url_for('matching') }}">Browse available food</a>{% endif %}</div>{% endif %}
+{% endblock %}

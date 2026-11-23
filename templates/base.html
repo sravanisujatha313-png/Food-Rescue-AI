@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}FoodRescue AI{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<nav class="nav">
+  <a class="brand" href="{{ url_for('index') }}">🥗 FoodRescue <span>AI</span></a>
+  <div class="navlinks">
+    <a href="{{ url_for('about') }}">About</a>
+    {% if logged_user %}
+      <a href="{{ url_for('dashboard') }}">Dashboard</a>
+      <a href="{{ url_for('matching') }}">Find Food</a>
+      <a href="{{ url_for('predict') }}">AI Predictor</a>
+      {% if logged_user.role == 'donor' %}<a href="{{ url_for('donate') }}">Donate Food</a>{% endif %}
+      <a class="navbutton" href="{{ url_for('logout') }}">Logout</a>
+    {% else %}
+      <a href="{{ url_for('login') }}">Login</a>
+      <a class="navbutton" href="{{ url_for('register') }}">Join Us</a>
+    {% endif %}
+  </div>
+</nav>
+<main class="container">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}{% for category, message in messages %}
+      <div class="alert {{ category }}">{{ message }}</div>
+    {% endfor %}{% endif %}
+  {% endwith %}
+  {% block content %}{% endblock %}
+</main>
+<footer>FoodRescue AI · A student prototype for reducing food waste and supporting food recovery.</footer>
+</body>
+</html>

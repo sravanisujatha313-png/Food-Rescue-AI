@@ -1,0 +1,10 @@
+{% extends "base.html" %}{% block title %}AI Food Predictor{% endblock %}{% block content %}
+<div class="form-wrap"><div class="eyebrow">MACHINE LEARNING DEMO</div><h1>Food surplus predictor</h1><p class="muted">Estimate possible surplus from planned meals and expected customers.</p>
+<form method="post" class="form">
+<label>Meals prepared<input type="number" name="prepared" min="0" required placeholder="e.g. 250"></label>
+<label>Expected customers<input type="number" name="expected" min="0" required placeholder="e.g. 200"></label>
+<label>Is there a special event day?<select name="event"><option value="no">No</option><option value="yes">Yes</option></select></label>
+<button class="btn full">Estimate possible surplus</button></form>
+{% if prediction is not none %}<div class="prediction"><span>Estimated possible surplus</span><strong>{{ prediction }} meals</strong><small>Demo ML estimate only. It is not a guarantee. Validate with real kitchen data before operational use.</small></div>{% endif %}
+<div class="notice"><b>About the AI:</b> This prototype trains a Random Forest regression model on synthetic demonstration data when scikit-learn is installed. For a real deployment, train and validate it using consented historical meal-preparation and consumption records.</div>
+</div>{% endblock %}
